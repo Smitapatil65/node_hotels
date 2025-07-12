@@ -84,7 +84,8 @@ import db from './db.js';
 import Person from './models/person.js';
 import bodyParser from 'body-parser';
 import MenuItem from './models/menuItem.js';
-
+import dotenv from 'dotenv';
+dotenv.config();
 
 //const bodyParser=require('body-parser');
 app.use(bodyParser.json());
@@ -121,6 +122,7 @@ app.get('/person',async(req,res)=>{
 
   }
 })
+
 app.get('/menu',async(req,res)=>{
   try{
    const data=await Person.find();
@@ -130,7 +132,6 @@ app.get('/menu',async(req,res)=>{
   }catch(err){
    console.log(err);
    res.status(500).json({error:'Internal Server Error'});
-
   }
 })
 
@@ -149,11 +150,9 @@ app.get('/person/:workType',async(req,res)=>{
      console.log(err);
      res.status(500).json({error:'Internal Server Error '});
   }
-  
-   
-
-
 })
+
+
 
 import personRoutes from './routes/personRoutes.js'
 app.use('/person',personRoutes);
@@ -179,6 +178,7 @@ app.use('/person',personRoutes);
 //     res.send("data is saved...");
 // })
 
+const mongoURL = process.env.DB_URL;
 
 app.listen(3000,()=>{
     console.log("server jinda haiii...on 3000")
